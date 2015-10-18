@@ -6,12 +6,17 @@ var employeeArray = [], monthlyTotal = 0;
 //call up the jQuery script
 $(document).ready(function(){
 
-	$("#monthlyTotalPayroll").text("Monthly total payroll costs: " + monthlyTotal)
+	//appends a message to the monthly total payroll section with the 
+	//current monthly total payroll
+	
+
 	//select the employeeInput form and listen for the submit event
 	 $("#employeeInput").submit(function(event){
 
 	 	//keeps the submit event from executing its default action
 	 	event.preventDefault();
+
+	 	updatePayroll();
 
 	 	//the object that will hold each employee's information
 	 	var info = {};
@@ -31,6 +36,8 @@ $(document).ready(function(){
 	 	$("#employeeInfo").find("input[type=text]").val();
 	 	employeeArray.push(info);
 	 	appendToDom(info);
+	 	$("#monthlyTotalPayroll").text("Monthly total payroll costs: " + monthlyTotal);
+	 	updatePayroll();
 	 });
 })
 
@@ -47,4 +54,10 @@ function appendToDom(employee){
 	$el.append("<p>" + employee.employeeNumber + "</p>");
 	$el.append("<p>" + employee.jobTitle + "</p>");
 	$el.append("<p>" + employee.yearlySalary + "</p>");
+
+	monthlyTotal += parseInt(employee.yearlySalary)/12;
 }
+
+function updatePayroll(){
+	$("#monthlyTotalPayroll").text("Monthly total payroll costs = " + monthlyTotal);
+}();
