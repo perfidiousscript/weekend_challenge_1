@@ -1,9 +1,12 @@
-//declare a global emloyee array to hold onto this data persistantly
-var employeeArray = []
+// declare a global emloyee array and monthly total value to 
+// hold onto these data persistantly.
+var employeeArray = [], monthlyTotal = 0;
 
 
 //call up the jQuery script
 $(document).ready(function(){
+
+	$("#monthlyTotalPayroll").text("Monthly total payroll costs: " + monthlyTotal)
 	//select the employeeInput form and listen for the submit event
 	 $("#employeeInput").submit(function(event){
 
