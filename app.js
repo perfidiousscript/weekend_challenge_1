@@ -28,10 +28,12 @@ $(document).ready(function(){
 	 	//check that we are getting a nice object from the stripped data:
 	 	//console.log(info);
 
+	 	//clears the form boxes aster submission
+	 	$("#employeeInfo").find("input[type=text]").val("");
+
 	 	//takes the object with the emplyee data in it, pushes it to the
 	 	//global employeeArray var then calls appendToDom with the values object
 	 	//thus placing the info onto the DOM
-	 	$("#employeeInfo").find("input[type=text]").val();
 	 	employeeArray.push(info);
 	 	appendToDom(info);
 
@@ -49,10 +51,10 @@ function appendToDom(employee){
 	//make the location a local varible
 	var $el = $("#employeeInfo").children().last();
 
-	$el.append("<p>" + employee.employeeName + "</p>");
-	$el.append("<p>" + employee.employeeNumber + "</p>");
-	$el.append("<p>" + employee.jobTitle + "</p>");
-	$el.append("<p>" + employee.yearlySalary + "</p>");
+	$el.append("<p>Name: " + employee.employeeName + "</p>");
+	$el.append("<p>Employee Number: " + employee.employeeNumber + "</p>");
+	$el.append("<p>Job title: " + employee.jobTitle + "</p>");
+	$el.append("<p> Annual salary: " + employee.yearlySalary + "</p>");
 }
 
 function updatePayroll(updateAmount){
@@ -60,11 +62,11 @@ function updatePayroll(updateAmount){
 	if(updateAmount == null || undefined){
 		updateAmount = 0;
 	}
-	
+
 	$("#monthlyTotalPayroll").text("Monthly total payroll = $" + annualToMonthly(updateAmount));
 }
 
 //function divides annual salary into monthly salary
 function annualToMonthly(annual){
-	return annual/12;
+	return Math.round(annual/12);
 }
