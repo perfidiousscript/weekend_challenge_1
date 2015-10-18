@@ -28,19 +28,20 @@ $(document).ready(function(){
 	 	$("#employeeInfo").find("input[type=text]").val();
 	 	employeeArray.push(info);
 	 	appendToDom(info);
-
 	 });
 })
 
 //this function will append whatever is passed into it into the DOM
-function appendToDom(){
-	$("employeeInfo").append("<div class='employee'></div>")
+function appendToDom(employee){
+	$("#employeeInfo").append("<div class='employee'></div>")
 
+	//tests argument at this poing
+	console.log(employee);
 	//make the location a local varible
-	var $el = $("#employeeContainer").children().last();
+	var $el = $("#employeeInfo").children().last();
 
-	$el.append("<p>" + employee.employeename + "</p>");
-	$el.append("<p>" + employee.employeenumber + "</p>");
+	$el.append("<p>" + employee.employeeName + "</p>");
+	$el.append("<p>" + employee.employeeNumber + "</p>");
 	$el.append("<p>" + employee.jobTitle + "</p>");
-	$el.append("<p>" + employee.YearlySalary + "</p>");
+	$el.append("<p>" + employee.yearlySalary + "</p>");
 }
