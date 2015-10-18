@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 	//appends a message to the monthly total payroll section with the 
 	//current monthly total payroll
-	
+	updatePayroll();	
 
 	//select the employeeInput form and listen for the submit event
 	 $("#employeeInput").submit(function(event){
@@ -16,10 +16,8 @@ $(document).ready(function(){
 	 	//keeps the submit event from executing its default action
 	 	event.preventDefault();
 
-	 	updatePayroll();
-
 	 	//the object that will hold each employee's information
-	 	var info = {};
+	 	var info = {}, monthlySalary = 0;
 
 	 	//Goes through the object created from 'submit' and strips out the info into
 	 	//a human readable format.
@@ -36,15 +34,16 @@ $(document).ready(function(){
 	 	$("#employeeInfo").find("input[type=text]").val();
 	 	employeeArray.push(info);
 	 	appendToDom(info);
-	 	$("#monthlyTotalPayroll").text("Monthly total payroll costs: " + monthlyTotal);
-	 	updatePayroll();
+
+	 	//updates monthly total payroll div with the employee's
+	 	//monthly salary costs as caluclated from their yearly salary
+	 	updatePayroll(info.yearlySalary);
 	 });
 })
 
 //this function will append whatever is passed into it into the DOM
 function appendToDom(employee){
 	$("#employeeInfo").append("<div class='employee'></div>")
-
 	//tests argument at this poing
 	console.log(employee);
 	//make the location a local varible
@@ -54,10 +53,18 @@ function appendToDom(employee){
 	$el.append("<p>" + employee.employeeNumber + "</p>");
 	$el.append("<p>" + employee.jobTitle + "</p>");
 	$el.append("<p>" + employee.yearlySalary + "</p>");
-
-	monthlyTotal += parseInt(employee.yearlySalary)/12;
 }
 
-function updatePayroll(){
-	$("#monthlyTotalPayroll").text("Monthly total payroll costs = " + monthlyTotal);
-}();
+function updatePayroll(updateAmount){
+
+	if(updateAmount == null || undefined){
+		updateAmount = 0;
+	}
+	
+	$("#monthlyTotalPayroll").text("Monthly total payroll = $" + annualToMonthly(updateAmount));
+}
+
+//function divides annual salary into monthly salary
+function annualToMonthly(annual){
+	return annual/12;
+}
