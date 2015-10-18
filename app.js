@@ -29,7 +29,7 @@ $(document).ready(function(){
 	 	//console.log(info);
 
 	 	//clears the form boxes aster submission
-	 	$("#employeeInfo").find("input[type=text]").val("");
+	 	$("#employeeInput").find("input[type=text]").val("");
 
 	 	//takes the object with the emplyee data in it, pushes it to the
 	 	//global employeeArray var then calls appendToDom with the values object
@@ -45,7 +45,7 @@ $(document).ready(function(){
 
 //this function will append whatever is passed into it into the DOM
 function appendToDom(employee){
-	$("#employeeInfo").append("<div class='employee'></div>")
+	$("#employeeInfo").append("<div class='employee'><h3>Employee: "+ employee.employeeName+"</h3></div>")
 	//tests argument at this poing
 	console.log(employee);
 	//make the location a local varible
