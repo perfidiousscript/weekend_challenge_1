@@ -1,6 +1,6 @@
 // declare a global emloyee array and monthly total value to 
 // hold onto these data persistantly.
-var employeeArray = [], monthlyTotal = 0;
+var employeeArray = [], monthlySalaries = {}, totalMonthlySalaries = 0;
 
 
 //call up the jQuery script
@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 	//appends a message to the monthly total payroll section with the 
 	//current monthly total payroll
-	updatePayroll(monthlyTotal);	
+	updatePayroll(monthlySalaries);	
 
 	//select the employeeInput form and listen for the submit event
 	 $("#employeeInput").submit(function(event){
@@ -44,9 +44,10 @@ $(document).ready(function(){
 	 		updatePayroll(0 - info.yearlySalary);
 	 		$(this).closest(".employee").remove();	
 	 	});
+
 	 	//updates monthly total payroll div with the employee's
-	 	//monthly salary costs as caluclated from their yearly salary
-	 	updatePayroll(info.yearlySalary);
+	 	//monthly salary costs as calculated from their yearly salary
+	 	updatePayroll(monthlySalaries);
 	 });
 })
 
@@ -62,16 +63,22 @@ function appendToDom(employee){
 	$el.append("<p>Employee Number: " + employee.employeeNumber + "</p>");
 	$el.append("<p>Job title: " + employee.jobTitle + "</p>");
 	$el.append("<p> Annual salary: " + employee.yearlySalary + "</p>");
+
+	//adds the employee name monthly salary with the monthly salary keyed to it
+	monthlySalaries[employee.employeeName] = annualToMonthly(employee.yearlySalary); 
+	console.log(monthlySalaries); 
 }
 
 //When called this function updates the 
 function updatePayroll(updateAmount){
-	
-	if(typeof updateAmount == "undefined"){
-		alert("Please enter a valid salary number!");
+	totalMonthlySalaries = 0;
+
+	for(salary in updateAmount){
+		totalMonthlySalaries += parseInt(updateAmount[salary]);
 	}
 
-	$("#monthlyTotalPayroll").text("Monthly total payroll = $" + annualToMonthly(updateAmount));
+	$("#monthlyTotalPayroll").text("Monthly total payroll = $" + totalMonthlySalaries);
+	console.log(totalMonthlySalaries)
 }
 
 //function divides annual salary into monthly salary
