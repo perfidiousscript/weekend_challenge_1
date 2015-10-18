@@ -26,8 +26,8 @@ $(document).ready(function(){
 	 	//global employeeArray var then calls appendToDom with the values object
 	 	//thus placing the info onto the DOM
 	 	$("#employeeInfo").find("input[type=text]").val();
-	 	employeeArray.push(values);
-	 	appendToDom(values);
+	 	employeeArray.push(info);
+	 	appendToDom(info);
 
 	 });
 })
