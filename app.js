@@ -44,7 +44,7 @@ $(document).ready(function(){
 	 	$("button").on("click", function(){
 	 		var $container = $(this).closest(".employee");
 	 		console.log("evals to: ", $container.data("name"));
-	 		//delete monthlySalaries[jQuery.data(this,"name")];
+	 		delete monthlySalaries[$container.data("name")];
 	 		$container.remove();
 	 		updatePayroll(monthlySalaries);	
 	 	});
