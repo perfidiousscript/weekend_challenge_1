@@ -1,6 +1,6 @@
 // declare a global emloyee array and monthly total value to 
 // hold onto these data persistantly.
-var employeeArray = [], monthlySalaries = {}, totalMonthlySalaries;
+var employeeArray = [], monthlySalaries = {}, totalMonthlySalaries, employeePlace = 0;
 
 
 //call up the jQuery script
@@ -35,15 +35,19 @@ $(document).ready(function(){
 	 	//global employeeArray var then calls appendToDom with the values object
 	 	//thus placing the info onto the DOM
 	 	employeeArray.push(info);
+
 	 	//Adds employee info to the end of the emplyeeInput div
 	 	appendToDom(info);
 
-	 	//functionality for the removeEmployee button (when clicked it finds the nearest "employee"
-	 	//DOM element and remove the whole thing)
-	 	// $("button").on("click", function(){
-	 	// 	delete monthlySalaries[]
-	 	// 	$(this).closest(".employee").remove();	
-	 	// });
+	 	//functionality for the removeEmployee button (when clicked it finds 
+	 	//the nearest "employee" DOM element and remove the whole thing)
+	 	$("button").on("click", function(){
+	 		var $container = $(this).closest(".employee");
+	 		console.log("evals to: ", $container.data("name"));
+	 		//delete monthlySalaries[jQuery.data(this,"name")];
+	 		$container.remove();
+	 		updatePayroll(monthlySalaries);	
+	 	});
 
 	 	//updates monthly total payroll div with the employee's
 	 	//monthly salary costs as calculated from their yearly salary
@@ -55,8 +59,9 @@ $(document).ready(function(){
 function appendToDom(employee){
 	$("#employeeInfo").append("<div class='employee'><h3>Employee: "+ employee.employeeName+"</h3><button>Remove Employee</button></div>")
 	//tests argument at this point
-	console.log(employee);
-	//make the location a local varible
+	//console.log(employee);
+
+	//make the location a local variable
 	var $el = $("#employeeInfo").children().last();
 
 	$el.append("<p>Name: " + employee.employeeName + "</p>");
@@ -67,8 +72,9 @@ function appendToDom(employee){
 	//adds the employee name monthly salary with the monthly salary keyed to it
 	monthlySalaries[employee.employeeName] = annualToMonthly(employee.yearlySalary);
 
-	jQuery.data($el,"name", employee.employeeName);
-	console.log(jQuery.data($el, "name"));
+	//gives the employee div a data tag equivalent to Employee Name
+	$el.data("name", employee.employeeName);
+	console.log("At first: ", $el.data("name"));
 	//console.log(monthlySalaries); 
 }
 
