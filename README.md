@@ -1,5 +1,10 @@
 # weekend_challenge_1
 
+Script takes in four employee parameters, and appends them to the DOM in a new div. Each employee div is given a data attribute equvalent to the employee name. Then the employee monthly salary is added to a global object. Each time a new employee is added the element is iterated through, summed and this sum is posted as the monthly payroll cost.
+
+Each employee div comes with a remove button. When pressed this button (using the data attribute) finds and removes the employee monthly salary from the salary object, recalculates the monthly payroll costs and removes that employee's parameters from the DOM. 
+
+
 Prime digital academy weekend challange 1.
 
 Specs: 
