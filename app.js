@@ -1,6 +1,6 @@
 // declare a global emloyee array and monthly total value to 
 // hold onto these data persistantly.
-var employeeArray = [], monthlySalaries = {}, totalMonthlySalaries = 0;
+var employeeArray = [], monthlySalaries = {}, totalMonthlySalaries;
 
 
 //call up the jQuery script
@@ -40,10 +40,10 @@ $(document).ready(function(){
 
 	 	//functionality for the removeEmployee button (when clicked it finds the nearest "employee"
 	 	//DOM element and remove the whole thing)
-	 	$("button").on("click", function(){
-	 		updatePayroll(0 - info.yearlySalary);
-	 		$(this).closest(".employee").remove();	
-	 	});
+	 	// $("button").on("click", function(){
+	 	// 	delete monthlySalaries[]
+	 	// 	$(this).closest(".employee").remove();	
+	 	// });
 
 	 	//updates monthly total payroll div with the employee's
 	 	//monthly salary costs as calculated from their yearly salary
@@ -54,7 +54,7 @@ $(document).ready(function(){
 //this function will append whatever is passed into it into the DOM
 function appendToDom(employee){
 	$("#employeeInfo").append("<div class='employee'><h3>Employee: "+ employee.employeeName+"</h3><button>Remove Employee</button></div>")
-	//tests argument at this poing
+	//tests argument at this point
 	console.log(employee);
 	//make the location a local varible
 	var $el = $("#employeeInfo").children().last();
@@ -65,8 +65,11 @@ function appendToDom(employee){
 	$el.append("<p> Annual salary: " + employee.yearlySalary + "</p>");
 
 	//adds the employee name monthly salary with the monthly salary keyed to it
-	monthlySalaries[employee.employeeName] = annualToMonthly(employee.yearlySalary); 
-	console.log(monthlySalaries); 
+	monthlySalaries[employee.employeeName] = annualToMonthly(employee.yearlySalary);
+
+	jQuery.data($el,"name", employee.employeeName);
+	console.log(jQuery.data($el, "name"));
+	//console.log(monthlySalaries); 
 }
 
 //When called this function updates the 
@@ -78,7 +81,7 @@ function updatePayroll(updateAmount){
 	}
 
 	$("#monthlyTotalPayroll").text("Monthly total payroll = $" + totalMonthlySalaries);
-	console.log(totalMonthlySalaries)
+	console.log("salaries object: ", updateAmount);
 }
 
 //function divides annual salary into monthly salary
